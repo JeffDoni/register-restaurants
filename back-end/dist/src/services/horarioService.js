@@ -77,23 +77,6 @@ const atualizarHorario = (id, horarioAtualizado) => __awaiter(void 0, void 0, vo
     return horario;
 });
 exports.atualizarHorario = atualizarHorario;
-// export const getHorariosByRestauranteId = async (restauranteId: number) => {
-//   try {
-//     const horarios = await prisma.horario.findMany({
-//       where: {
-//         restauranteId,
-//       },
-//     });
-//     // Mapeia os dias da semana para o padrão da função getDay()
-//     const horariosMapeados = horarios.map(horario => ({
-//       ...horario,
-//       diaSemana: horario.diaSemana === 7 ? 0 : horario.diaSemana,
-//     }));
-//     return horariosMapeados;
-//   } catch (error) {
-//     throw new Error('Erro ao buscar horários do restaurante');
-//   }
-// };
 const excluirHorario = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const horario = yield prisma.horario.delete({
         where: {

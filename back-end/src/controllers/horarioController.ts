@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Horario } from '@prisma/client';
 import * as horarioService from '../services/horarioService';
 
+
 export const criarHorario = async(req: Request, res: Response): Promise<void> => {
   try {
     const novoHorario = req.body as Horario;
@@ -16,9 +17,9 @@ export const criarHorario = async(req: Request, res: Response): Promise<void> =>
 
 export  const obterHorarioPorId = async (req: Request, res: Response): Promise<void> => {
   try {
-    const restauranteId = parseInt(req.params.id, 10);
+    const restauranteId = parseInt(req.params.restauranteId);
 
-    const horarios = await horarioService.obterHorarioPorId(restauranteId);
+    const horarios = await horarioService.obterHorarioPorId(restauranteId)
 
     res.json(horarios);
   } catch (error) {

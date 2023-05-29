@@ -27,6 +27,7 @@ const express_1 = require("express");
 const horarioController = __importStar(require("../controllers/horarioController"));
 const router = (0, express_1.Router)();
 router.post('/horarios', horarioController.criarHorario);
+router.post('/horarios/:restauranteId/isopen', horarioController.checkIsOpen);
 router.get('/horarios/:restauranteId/todos', horarioController.obterHorarioPorId);
 router.put('/horarios/:id', horarioController.atualizarHorario);
 router.delete('/horarios/:id', horarioController.excluirHorario);
