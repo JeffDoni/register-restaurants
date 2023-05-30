@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { isRestaurantOpen } from './helpers/isOpen';
 
@@ -6,12 +6,10 @@ const RestaurantList = () => {
   const [restaurantes, setRestaurantes] = useState([]);
   const [data, setData] = useState('');
   const [hora, setHora] = useState('');
-  const [restaurantesAbertos, setRestaurantesAbertos] = useState([]);
 
   const fetchRestaurants = async () => {
     try {
       const response = await axios.get('http://localhost:3000/restaurantes');
-
       setRestaurantes(response.data);
     } catch (error) {
       console.error('Erro ao buscar restaurantes:', error);
@@ -20,11 +18,16 @@ const RestaurantList = () => {
 
   const handleCheckOpen = async (restauranteId) => {
     const isOpen = await isRestaurantOpen(restauranteId, data, hora);
-    const restaurante = restaurantes.find(r => r.id === restauranteId);
-
-    if (isOpen) {
-      setRestaurantesAbertos(prevState => [...prevState, restaurante.nome]);
-    }
+    const updatedRestaurantes = restaurantes.map((restaurante) => {
+      if (restaurante.id === restauranteId) {
+        return {
+          ...restaurante,
+          isOpen: isOpen ? 'Aberto' : 'Fechado',
+        };
+      }
+      return restaurante;
+    });
+    setRestaurantes(updatedRestaurantes);
   };
 
   useEffect(() => {
@@ -37,40 +40,29 @@ const RestaurantList = () => {
 
       <div>
         <label>Data:</label>
-        <input type="date" value={data} onChange={e => setData(e.target.value)} />
+        <input type="date" value={data} onChange={(e) => setData(e.target.value)} />
       </div>
 
       <div>
         <label>Hora:</label>
-        <input type="time" value={hora} onChange={e => setHora(e.target.value)} />
+        <input type="time" value={hora} onChange={(e) => setHora(e.target.value)} />
       </div>
 
-      <button onClick={() => setRestaurantesAbertos([])}>Limpar</button>
-
       <ul>
-        {restaurantes.map(restaurante => (
+        {restaurantes.map((restaurante) => (
           <li key={restaurante.id}>
             <span>{restaurante.nome}</span>
             <button onClick={() => handleCheckOpen(restaurante.id)}>Verificar</button>
+            {restaurante.isOpen && <span>{restaurante.isOpen}</span>}
           </li>
         ))}
       </ul>
-
-      {restaurantesAbertos.length > 0 && (
-        <div>
-          <h2>Restaurantes Abertos:</h2>
-          <ul>
-            {restaurantesAbertos.map(restaurante => (
-              <li key={restaurante}>{restaurante}</li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };
 
 export default RestaurantList;
+
 
 
 
