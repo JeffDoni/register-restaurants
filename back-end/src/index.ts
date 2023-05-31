@@ -1,6 +1,6 @@
 import express from 'express';
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./docs/swagger.json');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./docs/swagger.json');
 
 const cors = require('cors');
 
@@ -13,7 +13,9 @@ app.use(cors({
   origin: '*'
 }));
 
+app.use(express.json());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -21,7 +23,7 @@ app.get('/', (req, res) => {
 app.use(restauranteRoutes);
 app.use(horarioRoutes)
 
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use((req, res) => {
   res.status(404).json({ error: 'Rota não encontrada' });
 });
@@ -35,5 +37,4 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
 

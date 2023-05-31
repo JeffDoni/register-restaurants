@@ -5,12 +5,11 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prisma": "ts-node prisma/seed.ts",
-    "build": "tsc && npx prisma migrate dev && npx prisma db seed",
-    "start": "node dist/src/index.js"
+    "build": "if [ -d dist ]; then rm -rf dist; fi && tsc && npx prisma migrate dev && npx prisma db seed --preview-feature && npx prisma generate",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
