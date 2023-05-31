@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const cors = require('cors');
 const body_parser_1 = __importDefault(require("body-parser"));
 const restauranteRoutes_1 = __importDefault(require("./src/routes/restauranteRoutes"));
@@ -11,6 +13,7 @@ const horarioRoutes_1 = __importDefault(require("./src/routes/horarioRoutes"));
 const app = (0, express_1.default)();
 app.use(cors());
 app.use(body_parser_1.default.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(restauranteRoutes_1.default);
 app.use(horarioRoutes_1.default);
 app.use((req, res) => {

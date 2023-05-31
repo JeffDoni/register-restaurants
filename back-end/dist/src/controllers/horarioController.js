@@ -32,34 +32,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.excluirHorario = exports.atualizarHorario = exports.obterHorarioPorId = exports.criarHorario = exports.checkIsOpen = exports.getHorariosByRestaurante = void 0;
+exports.excluirHorario = exports.atualizarHorario = exports.obterHorarioPorId = exports.criarHorario = void 0;
 const horarioService = __importStar(require("../services/horarioService"));
-const getHorariosByRestaurante = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { restauranteId } = req.params;
-    try {
-        const horarios = yield horarioService.getHorariosByRestauranteId(parseInt(restauranteId, 10));
-        res.json(horarios);
-    }
-    catch (error) {
-        console.error('Erro ao buscar horários do restaurante:', error);
-        res.status(500).json({ error: 'Erro ao buscar horários do restaurante' });
-    }
-});
-exports.getHorariosByRestaurante = getHorariosByRestaurante;
-const checkIsOpen = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { restauranteId } = req.params;
-    const { data, hora } = req.body;
-    try {
-        const horarios = yield horarioService.getHorariosByRestauranteId(parseInt(restauranteId));
-        const isOpen = horarios.some((horario) => horarioService.isHorarioAberto(horario, data, hora));
-        res.json({ isOpen });
-    }
-    catch (error) {
-        console.error('Erro ao verificar se o restaurante está aberto:', error);
-        res.status(500).json({ error: 'Erro ao verificar se o restaurante está aberto' });
-    }
-});
-exports.checkIsOpen = checkIsOpen;
 const criarHorario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const novoHorario = req.body;

@@ -9,48 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.excluirHorario = exports.atualizarHorario = exports.obterHorarioPorId = exports.criarHorario = exports.isHorarioAberto = exports.isHorarioDiaSemana = exports.getHorariosByRestauranteId = void 0;
+exports.excluirHorario = exports.atualizarHorario = exports.obterHorarioPorId = exports.criarHorario = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-var DiasSemana;
-(function (DiasSemana) {
-    DiasSemana["DOMINGO"] = "DOMINGO";
-    DiasSemana["SEGUNDA"] = "SEGUNDA";
-    DiasSemana["TERCA"] = "TERCA";
-    DiasSemana["QUARTA"] = "QUARTA";
-    DiasSemana["QUINTA"] = "QUINTA";
-    DiasSemana["SEXTA"] = "SEXTA";
-    DiasSemana["SABADO"] = "SABADO";
-})(DiasSemana || (DiasSemana = {}));
-const getHorariosByRestauranteId = (restauranteId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const horarios = yield prisma.horario.findMany({
-            where: {
-                restauranteId,
-            },
-        });
-        return horarios;
-    }
-    catch (error) {
-        throw new Error('Erro ao buscar horários do restaurante');
-    }
-});
-exports.getHorariosByRestauranteId = getHorariosByRestauranteId;
-const isHorarioDiaSemana = (horario, diaSemana) => {
-    const horarioDiaSemana = horario.diaSemana.toUpperCase();
-    return horarioDiaSemana === diaSemana.toUpperCase();
-};
-exports.isHorarioDiaSemana = isHorarioDiaSemana;
-const isHorarioAberto = (horario, data, hora) => {
-    const diaSemana = new Date(data).toLocaleDateString('pt-BR', { weekday: 'long' }).toUpperCase();
-    const horaAbertura = new Date(`${data} ${horario.horaAbertura}`);
-    const horaFechamento = new Date(`${data} ${horario.horaFechamento}`);
-    const horaAtual = new Date(`${data} ${hora}`);
-    return ((0, exports.isHorarioDiaSemana)(horario, diaSemana) &&
-        horaAtual >= horaAbertura &&
-        horaAtual <= horaFechamento);
-};
-exports.isHorarioAberto = isHorarioAberto;
 const criarHorario = (novoHorario) => __awaiter(void 0, void 0, void 0, function* () {
     const horario = yield prisma.horario.create({
         data: novoHorario,
