@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { isRestaurantOpen } from './helpers/isOpen';
+import './App.css';
 
 const RestaurantList = () => {
   const [restaurantes, setRestaurantes] = useState([]);
@@ -22,7 +23,7 @@ const RestaurantList = () => {
       if (restaurante.id === restauranteId) {
         return {
           ...restaurante,
-          isOpen: isOpen ? 'Aberto' : 'Fechado',
+          isOpen: isOpen
         };
       }
       return restaurante;
@@ -35,25 +36,27 @@ const RestaurantList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="restaurant-list">
       <h1>Lista de Restaurantes</h1>
 
-      <div>
+      <div className="input-container">
         <label>Data:</label>
         <input type="date" value={data} onChange={(e) => setData(e.target.value)} />
       </div>
 
-      <div>
+      <div className="input-container">
         <label>Hora:</label>
         <input type="time" value={hora} onChange={(e) => setHora(e.target.value)} />
       </div>
 
       <ul>
         {restaurantes.map((restaurante) => (
-          <li key={restaurante.id}>
+          <li key={restaurante.id} className="restaurant-item">
             <span>{restaurante.nome}</span>
+            <span>{restaurante.tipo}</span>
+            <span>{restaurante.endereco}</span>
             <button onClick={() => handleCheckOpen(restaurante.id)}>Verificar</button>
-            {restaurante.isOpen && <span>{restaurante.isOpen}</span>}
+            {restaurante.isOpen && <span className="open-status">{restaurante.isOpen}</span>}
           </li>
         ))}
       </ul>
@@ -62,6 +65,7 @@ const RestaurantList = () => {
 };
 
 export default RestaurantList;
+
 
 
 
