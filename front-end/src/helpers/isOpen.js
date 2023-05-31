@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+export const url = process.env.REACT_APP_API_URL || 'localhost:3001';
+export const protocols = process.env.REACT_APP_API_PROTOCOLS || 'http';
+
 export const isRestaurantOpen = async (restauranteId, data, hora) => {
   try {
-    const response = await axios.get(`http://localhost:3000/horarios/${restauranteId}/todos`);
+    const response = await axios.get(`${protocols}://${url}/horarios/${restauranteId}/todos`);
     const horarios = response.data;
 
     const horarioEncontrado = horarios.find(horario => {
@@ -37,5 +40,7 @@ export const isRestaurantOpen = async (restauranteId, data, hora) => {
     return false;
   }
 };
+
+  
 
   
