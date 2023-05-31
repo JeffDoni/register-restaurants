@@ -1,12 +1,12 @@
 import express from 'express';
 // const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./swagger.json');
+// const swaggerDocument = require('./docs/swagger.json');
 
 const cors = require('cors');
 
 import bodyParser from 'body-parser';
-import restauranteRoutes from './src/routes/restauranteRoutes';
-import horarioRoutes from './src/routes/horarioRoutes';
+import restauranteRoutes from './routes/restauranteRoutes';
+import horarioRoutes from './routes/horarioRoutes';
 
 const app = express();
 app.use(cors({
