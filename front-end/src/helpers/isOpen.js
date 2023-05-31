@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const isRestaurantOpen = async (restauranteId, data, hora) => {
   try {
-    const response = await axios.get(`https://jeffdoni-restaurantes.up.railway.app/${restauranteId}/todos`);
+    const response = await axios.get(`https://jeffdoni-restaurantes.up.railway.app/horarios/${restauranteId}/todos`);
     const horarios = response.data;
 
     const horarioEncontrado = horarios.find(horario => {

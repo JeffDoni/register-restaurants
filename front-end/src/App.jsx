@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { isRestaurantOpen } from './helpers/isOpen';
 import './App.css';
 
 const RestaurantList = () => {
