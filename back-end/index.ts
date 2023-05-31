@@ -15,10 +15,13 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 app.use(restauranteRoutes);
 app.use(horarioRoutes)
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use((req, res) => {
   res.status(404).json({ error: 'Rota não encontrada' });
 });
