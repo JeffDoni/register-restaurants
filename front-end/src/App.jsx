@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isRestaurantOpen, url, protocols } from './helpers/isOpen';
 import './App.css';
 
 const RestaurantList = () => {
@@ -10,7 +9,7 @@ const RestaurantList = () => {
 
   const fetchRestaurants = async () => {
     try {
-      const response = await axios.get(`${protocols}://${url}/restaurantes`);
+      const response = await axios.get(`https://jeffdoni-restaurantes.up.railway.app/restaurantes`);
       setRestaurantes(response.data);
     } catch (error) {
       console.error('Erro ao buscar restaurantes:', error);
