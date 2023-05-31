@@ -9,7 +9,9 @@ import restauranteRoutes from './src/routes/restauranteRoutes';
 import horarioRoutes from './src/routes/horarioRoutes';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(bodyParser.json());
 
